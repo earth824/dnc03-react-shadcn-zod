@@ -8,15 +8,20 @@ import {
   ItemTitle
 } from './ui/item';
 import { Trash } from 'lucide-react';
+import { cn } from 'cn';
 
-export default function TodoItem() {
+export default function TodoItem({ title, completed }) {
   return (
     <Item variant="outline" size="lg">
       <ItemMedia>
-        <Checkbox />
+        <Checkbox checked={completed} />
       </ItemMedia>
       <ItemContent>
-        <ItemTitle>Your profile has been verified.</ItemTitle>
+        <ItemTitle
+          className={cn({ 'line-through text-muted-foreground': completed })}
+        >
+          {title}
+        </ItemTitle>
       </ItemContent>
       <ItemActions>
         <button>
