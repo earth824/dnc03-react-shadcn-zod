@@ -9,20 +9,23 @@ import axios from 'axios';
 export default function TodoContainer() {
   const [todos, setTodos] = useState([]);
 
-  useEffect(() => {
-    const fetchTodos = async () => {
-      try {
-        const res = await axios.get('http://localhost:3000/todos');
-        setTodos(res.data);
-      } catch (error) {}
-    };
+  const fetchTodos = async () => {
+    try {
+      const res = await axios.get('http://localhost:3000/todos');
+      setTodos(res.data);
+    } catch (error) {}
+  };
 
-    fetchTodos();
+  useEffect(() => {
+    // IIFE
+    (async () => {
+      fetchTodos();
+    })();
   }, []);
 
   return (
     <div className="">
-      <CreateTodoForm />
+      <CreateTodoForm fetchTodos={fetchTodos} />
       <div className="flex justify-between items-center mt-8 mb-4">
         <StatusFilter />
         <span className="text-muted-foreground text-sm">2 task left</span>
